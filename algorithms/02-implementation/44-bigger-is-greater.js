@@ -1,32 +1,22 @@
 function biggerIsGreater(w) {
-  let highestI = -1
+w= w.split('');
+    for(let i=w.length-1;i>=0;i--){
+        if(w[i]>w[i-1]){
+            for(let j= w.length-1;j>=i-1;j--){
+                if(w[j]>w[i-1]){
+                    let [index1,index2] =[i-1,j];
+                    let temp = w[index1];
+                    w[index1] = w[index2];
+                    w[index2] = temp;
 
-  for (let i = 0; i < w.length - 1; i++) {
-    if (w[i] < w[i + 1]) {
-      highestI = i
+                    let wArrStart = w.slice(0, index1 + 1);
+                    let wArrEnd = w.slice(index1 + 1);
+
+                    return wArrStart.concat(wArrEnd.reverse()).join('');
+                }
+            }
+            break;
+        }
     }
-  }
-
-  if (highestI === -1) {
-    return 'no answer'
-  }
-
-  let highestJ = -1
-
-  for (let j = highestI + 1; j < w.length; j++) {
-    if (w[j] > w[highestI]) {
-      highestJ = j
-    }
-  }
-
-  let wArr = w.split('')
-
-  let temp = wArr[highestI]
-  wArr[highestI] = wArr[highestJ]
-  wArr[highestJ] = temp
-
-  let wArrStart = wArr.slice(0, highestI + 1)
-  let wArrEnd = wArr.slice(highestI + 1)
-
-  return wArrStart.concat(wArrEnd.reverse()).join('')
+    return 'no answer';
 }
